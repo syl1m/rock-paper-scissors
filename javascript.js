@@ -10,37 +10,82 @@ function getComputerChoice() {
 }
 
 // Function to play a round of Rock Paper Scissors (RPS)
-
-function playRound(playerSelection, computerSelection) {
-    // Reassign playerSelection string to have the same case sensitivity as computerSelection for string comparison
-    // First character of string should be uppercase, all other characters should be lowercase
-    playerSelection = (playerSelection.slice(0,1)).toUpperCase() + (playerSelection.slice(1)).toLowerCase();
-        
+function playRound(playerSelection, computerSelection) {     
     // Get result of round (Tie, win, or loss)
     let result;
     switch (true) {
         // Tie
         case playerSelection === computerSelection:
-            result = `It's a tie! Both players selected ${playerSelection}`;
+            result = 'tie';
             break;
 
         // Player Wins
         case (playerSelection === 'Rock' && computerSelection === 'Scissors') ||
             (playerSelection === 'Paper' && computerSelection === 'Rock') ||
             (playerSelection === 'Scissors' && computerSelection === 'Paper'):
-            result = `You Win! ${playerSelection} beats ${computerSelection}`;
+            result = 'win';
             break;
 
         // Player Loses as default case
         default:
-            result = `You Lose! ${computerSelection} beats ${playerSelection}`;
+            result = 'loss';
     }
     return result;
 }
 
-// Testing script for playRound function
-//const playerSelection = 'rOcK';
-//const computerSelection = getComputerChoice();
-//console.log('Computer Selection: ' + computerSelection);
-//console.log('Player Selection: ' + playerSelection);
-//console.log(playRound(playerSelection,computerSelection));
+// Function to play a game of 5 RPS rounds
+function game() {
+    let playerScore = 0,
+        computerScore = 0,
+        playerSelection,
+        computerSelection,
+        result,
+        gameResult;
+        
+    for (let i = 1; i < 6; i++) {
+        playerSelection = getPlayerChoice();    
+        computerSelection = getComputerChoice();
+        result = playRound(playerSelection, computerSelection);
+        if (result === 'tie') {
+            console.log(`Round ${i}: It's a tie! Both players selected ${playerSelection}.`);
+            console.log(`Player to Computer Score: ${playerScore}-${computerScore}`);
+        } else if (result === 'win') {
+            ++playerScore;
+            console.log(`Round ${i}: You Win! ${playerSelection} beats ${computerSelection}.`);
+            console.log(`Player to Computer Score: ${playerScore}-${computerScore}`);
+        } else {
+            ++computerScore;
+            console.log(`Round ${i}: You Lose! ${computerSelection} beats ${playerSelection}.`);
+            console.log(`Player to Computer Score: ${playerScore}-${computerScore}`);
+        }
+    }
+
+    if (playerScore === computerScore) {
+        gameResult = "It's a tie game !  Refresh page to play again.";
+    } else if (playerScore > computerScore) {
+        gameResult = "Winner, winner, winner!  Refresh page to play agaiin.";
+    } else {
+        gameResult = "You lost to the computer.  Better luck next time! Refresh page to play again.";
+    }
+
+    return gameResult;
+}
+
+// Function to prompt player to make a valid case insensitive selection of rock, paper, or scissors
+function getPlayerChoice() {
+    let playerChoice = prompt("What's your choice? Rock, Paper, or Scissors?");
+    
+    // First character of string should be uppercase, all other characters should be lowercase
+    playerChoice = (playerChoice.slice(0,1)).toUpperCase() + (playerChoice.slice(1)).toLowerCase();
+    
+    // Checks if player made a valid selection.  If invalid, the player is prompted to make a selection again until valid.
+    if (playerChoice === 'Rock' || playerChoice === 'Paper' || playerChoice === 'Scissors') {
+        return playerChoice;
+    } else {
+        console.log('Invalid selection.  Choose Rock, Paper, or Scissors.')
+        playerChoice = getPlayerChoice();
+        return playerChoice;    
+    }   
+}
+
+console.log(game());
