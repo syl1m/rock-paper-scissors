@@ -9,4 +9,38 @@ function getComputerChoice() {
     return computerChoice;
 }
 
-console.log(getComputerChoice());
+// Function to play a round of Rock Paper Scissors (RPS)
+
+function playRound(playerSelection, computerSelection) {
+    // Reassign playerSelection string to have the same case sensitivity as computerSelection for string comparison
+    // First character of string should be uppercase, all other characters should be lowercase
+    playerSelection = (playerSelection.slice(0,1)).toUpperCase() + (playerSelection.slice(1)).toLowerCase();
+        
+    // Get result of round (Tie, win, or loss)
+    let result;
+    switch (true) {
+        // Tie
+        case playerSelection === computerSelection:
+            result = `It's a tie! Both players selected ${playerSelection}`;
+            break;
+
+        // Player Wins
+        case (playerSelection === 'Rock' && computerSelection === 'Scissors') ||
+            (playerSelection === 'Paper' && computerSelection === 'Rock') ||
+            (playerSelection === 'Scissors' && computerSelection === 'Paper'):
+            result = `You Win! ${playerSelection} beats ${computerSelection}`;
+            break;
+
+        // Player Loses as default case
+        default:
+            result = `You Lose! ${computerSelection} beats ${playerSelection}`;
+    }
+    return result;
+}
+
+// Testing script for playRound function
+//const playerSelection = 'rOcK';
+//const computerSelection = getComputerChoice();
+//console.log('Computer Selection: ' + computerSelection);
+//console.log('Player Selection: ' + playerSelection);
+//console.log(playRound(playerSelection,computerSelection));
