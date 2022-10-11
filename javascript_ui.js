@@ -4,7 +4,7 @@
 const resultDiv = document.createElement('div');
 const score = document.createElement('div');
 const endGameDiv = document.createElement('div');
-const container = document.querySelector('body');
+const container = document.querySelector('.button_container');
 
 container.appendChild(resultDiv);
 container.appendChild(score);
