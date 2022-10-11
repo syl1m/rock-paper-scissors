@@ -1,6 +1,15 @@
 // JS file for playing RPS with a UI
 
 // Add event listeners to run playRound function when buttons are clicked
+const resultDiv = document.createElement('div');
+const score = document.createElement('div');
+const endGameDiv = document.createElement('div');
+const container = document.querySelector('body');
+
+container.appendChild(resultDiv);
+container.appendChild(score);
+container.appendChild(endGameDiv);
+
 let playerScore = 0,
     computerScore = 0,
     round = 0,
@@ -12,7 +21,6 @@ const buttons = document.querySelectorAll('button');
 buttons.forEach(button => button.addEventListener('click', (e) => {
     playerSelection = e.target.innerText;
     computerSelection = getComputerChoice();
-    console.log(playerSelection);
     playRound(playerSelection,computerSelection);
     endGame();
     }
@@ -37,8 +45,8 @@ function playRound(playerSelection, computerSelection) {
         // Tie
         case playerSelection === computerSelection:
             round++;
-            console.log(`Round ${round}: It's a tie! Both players selected ${playerSelection}.`);
-            console.log(`Player to Computer Score: ${playerScore}-${computerScore}`);
+            resultDiv.textContent = (`Round ${round}: It's a tie! Both players selected ${playerSelection}.`);
+            score.textContent = (`Player to Computer Score: ${playerScore}-${computerScore}`);
             break;
 
         // Player Wins
@@ -47,16 +55,16 @@ function playRound(playerSelection, computerSelection) {
             (playerSelection === 'Scissors' && computerSelection === 'Paper'):
             ++playerScore;
             round++;
-            console.log(`Round ${round}: You Win! ${playerSelection} beats ${computerSelection}.`);
-            console.log(`Player to Computer Score: ${playerScore}-${computerScore}`);
+            resultDiv.textContent = (`Round ${round}: You Win! ${playerSelection} beats ${computerSelection}.`);
+            score.textContent = (`Player to Computer Score: ${playerScore}-${computerScore}`);
             break;
 
         // Player Loses as default case
         default:
             ++computerScore;
             round++;
-            console.log(`Round ${round}: You Lose! ${computerSelection} beats ${playerSelection}.`);
-            console.log(`Player to Computer Score: ${playerScore}-${computerScore}`);
+            resultDiv.textContent = (`Round ${round}: You Lose! ${computerSelection} beats ${playerSelection}.`);
+            score.textContent = (`Player to Computer Score: ${playerScore}-${computerScore}`);
     }
     return;
 }
@@ -77,6 +85,6 @@ function endGame() {
     computerScore = 0,
     round = 0;
 
-    console.log(gameResult);
+    endGameDiv.textContent = (gameResult);
 }
 
