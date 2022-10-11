@@ -1,4 +1,22 @@
-// This JS file is for playing RPS in the browser console with prompts
+// JS file for playing RPS with a UI
+
+// Add event listeners to run playRound function when buttons are clicked
+let playerScore = 0,
+    computerScore = 0,
+    playerSelection,
+    computerSelection,
+    roundResult,
+    gameResult;
+
+const buttons = document.querySelectorAll('button');
+buttons.forEach(button => button.addEventListener('click', (e) => {
+    playerSelection = e.target.innerText;
+    computerSelection = getComputerChoice();
+    console.log(playerSelection);
+    playRound(playerSelection,computerSelection);
+    }
+));
+
 
 // Function to randomly return Rock, Paper, or Scissors
 function getComputerChoice() {
@@ -35,7 +53,7 @@ function playRound(playerSelection, computerSelection) {
     return roundResult;
 }
 
-// Function to play a game of 5 RPS rounds
+// Function to end game once either player has 5 wins
 function game() {
     let playerScore = 0,
         computerScore = 0,
@@ -44,10 +62,9 @@ function game() {
         roundResult,
         gameResult;
         
-    for (let i = 1; i < 6; i++) {
-        playerSelection = getPlayerChoice();    
-        computerSelection = getComputerChoice();
-        roundResult = playRound(playerSelection, computerSelection);
+    for (let i = 1; i < 6; i++) {  
+        //computerSelection = getComputerChoice();
+        //roundResult = playRound(playerSelection, computerSelection);
         if (roundResult === 'tie') {
             console.log(`Round ${i}: It's a tie! Both players selected ${playerSelection}.`);
             console.log(`Player to Computer Score: ${playerScore}-${computerScore}`);
@@ -73,20 +90,3 @@ function game() {
     return gameResult;
 }
 
-// Function to prompt player to make a valid case insensitive selection of rock, paper, or scissors
-function getPlayerChoice() {
-    let playerChoice = prompt("What's your choice? Rock, Paper, or Scissors?");
-    
-    // First character of string should be uppercase, all other characters should be lowercase
-    playerChoice = (playerChoice.slice(0,1)).toUpperCase() + (playerChoice.slice(1)).toLowerCase();
-    
-    // Checks if player made a valid selection.  If invalid, the player is prompted to make a selection again until valid.
-    if (playerChoice === 'Rock' || playerChoice === 'Paper' || playerChoice === 'Scissors') {
-        return playerChoice;
-    } else {
-        console.log('Invalid selection.  Choose Rock, Paper, or Scissors.')
-        playerChoice = getPlayerChoice();
-        return playerChoice;    
-    }   
-}
-console.log(game());
