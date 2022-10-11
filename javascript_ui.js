@@ -3,9 +3,9 @@
 // Add event listeners to run playRound function when buttons are clicked
 let playerScore = 0,
     computerScore = 0,
+    round = 0,
     playerSelection,
     computerSelection,
-    roundResult,
     gameResult;
 
 const buttons = document.querySelectorAll('button');
@@ -14,11 +14,11 @@ buttons.forEach(button => button.addEventListener('click', (e) => {
     computerSelection = getComputerChoice();
     console.log(playerSelection);
     playRound(playerSelection,computerSelection);
+    endGame();
     }
 ));
 
-
-// Function to randomly return Rock, Paper, or Scissors
+// Randomly return Rock, Paper, or Scissors as the computer choice
 function getComputerChoice() {
     
     const x = Math.floor((Math.random()*3)); // Randomly generate an integer value of 0, 1, or 2
@@ -29,64 +29,54 @@ function getComputerChoice() {
     return computerChoice;
 }
 
-// Function to play a round of Rock Paper Scissors (RPS)
+// Play a round of Rock Paper Scissors (RPS)
 function playRound(playerSelection, computerSelection) {     
     // Get result of round (Tie, win, or loss)
     
     switch (true) {
         // Tie
         case playerSelection === computerSelection:
-            roundResult = 'tie';
+            round++;
+            console.log(`Round ${round}: It's a tie! Both players selected ${playerSelection}.`);
+            console.log(`Player to Computer Score: ${playerScore}-${computerScore}`);
             break;
 
         // Player Wins
         case (playerSelection === 'Rock' && computerSelection === 'Scissors') ||
             (playerSelection === 'Paper' && computerSelection === 'Rock') ||
             (playerSelection === 'Scissors' && computerSelection === 'Paper'):
-            roundResult = 'win';
+            ++playerScore;
+            round++;
+            console.log(`Round ${round}: You Win! ${playerSelection} beats ${computerSelection}.`);
+            console.log(`Player to Computer Score: ${playerScore}-${computerScore}`);
             break;
 
         // Player Loses as default case
         default:
-            roundResult = 'loss';
+            ++computerScore;
+            round++;
+            console.log(`Round ${round}: You Lose! ${computerSelection} beats ${playerSelection}.`);
+            console.log(`Player to Computer Score: ${playerScore}-${computerScore}`);
     }
-    return roundResult;
+    return;
 }
 
-// Function to end game once either player has 5 wins
-function game() {
-    let playerScore = 0,
-        computerScore = 0,
-        playerSelection,
-        computerSelection,
-        roundResult,
-        gameResult;
-        
-    for (let i = 1; i < 6; i++) {  
-        //computerSelection = getComputerChoice();
-        //roundResult = playRound(playerSelection, computerSelection);
-        if (roundResult === 'tie') {
-            console.log(`Round ${i}: It's a tie! Both players selected ${playerSelection}.`);
-            console.log(`Player to Computer Score: ${playerScore}-${computerScore}`);
-        } else if (roundResult === 'win') {
-            ++playerScore;
-            console.log(`Round ${i}: You Win! ${playerSelection} beats ${computerSelection}.`);
-            console.log(`Player to Computer Score: ${playerScore}-${computerScore}`);
-        } else {
-            ++computerScore;
-            console.log(`Round ${i}: You Lose! ${computerSelection} beats ${playerSelection}.`);
-            console.log(`Player to Computer Score: ${playerScore}-${computerScore}`);
-        }
-    }
+// End game once either player has 5 wins
+function endGame() {
+    
+    if (playerScore !== 5 && computerScore !== 5) return;
 
-    if (playerScore === computerScore) {
-        gameResult = "It's a tie game !  Refresh page to play again.";
-    } else if (playerScore > computerScore) {
+    if (playerScore === 5) {
         gameResult = "Winner, winner, winner!  Refresh page to play agaiin.";
-    } else {
+    } else if (computerScore === 5) {
         gameResult = "You lost to the computer.  Better luck next time! Refresh page to play again.";
     }
 
-    return gameResult;
+    // Reset game
+    playerScore = 0,
+    computerScore = 0,
+    round = 0;
+
+    console.log(gameResult);
 }
 
