@@ -1,0 +1,70 @@
+body {
+    font-family: Roboto,monospace,"Segoe UI",sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer,.header {
+    background-color:rgb(193, 135, 203);
+    text-align: center;
+}
+
+.title {
+    padding: 50px;
+    font-size: 50px;
+    font-weight: 700;
+}
+
+.instructions {
+    font-size: 30px;
+    padding-bottom: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 25px 50px;
+}
+
+.game {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color: lavender;
+    justify-content: center;
+}
+
+.button_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    gap: 50px;
+}
+
+button {
+    font-size: 40px;
+    border-radius: 10px;
+    transition-duration: 0.2s;
+    padding: 15px;
+}
+
+button:hover {
+    background-color: #e5e7eb;
+    color: #cd38f6;
+    font-weight: 700;
+    font-size: 45px;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.result {
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+.footer {
+    font-size: 16px;
+    padding: 10px;
+}

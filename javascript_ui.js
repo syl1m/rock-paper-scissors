@@ -4,7 +4,7 @@
 const resultDiv = document.createElement('div');
 const score = document.createElement('div');
 const endGameDiv = document.createElement('div');
-const container = document.querySelector('.button_container');
+const container = document.querySelector('.result');
 
 container.appendChild(resultDiv);
 container.appendChild(score);
@@ -75,7 +75,7 @@ function endGame() {
     if (playerScore !== 5 && computerScore !== 5) return;
 
     if (playerScore === 5) {
-        gameResult = "Winner, winner, winner!  Refresh page to play agaiin.";
+        gameResult = "Winner, winner, winner!  Refresh page to play again.";
     } else if (computerScore === 5) {
         gameResult = "You lost to the computer.  Better luck next time! Refresh page to play again.";
     }
