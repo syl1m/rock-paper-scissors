@@ -40,13 +40,11 @@ function getComputerChoice() {
 // Play a round of Rock Paper Scissors (RPS)
 function playRound(playerSelection, computerSelection) {     
     // Get result of round (Tie, win, or loss)
-    
+    round++
     switch (true) {
         // Tie
         case playerSelection === computerSelection:
-            round++;
             resultDiv.textContent = (`Round ${round}: It's a tie! Both players selected ${playerSelection}.`);
-            score.textContent = (`Player to Computer Score: ${playerScore}-${computerScore}`);
             break;
 
         // Player Wins
@@ -54,18 +52,15 @@ function playRound(playerSelection, computerSelection) {
             (playerSelection === 'Paper' && computerSelection === 'Rock') ||
             (playerSelection === 'Scissors' && computerSelection === 'Paper'):
             ++playerScore;
-            round++;
             resultDiv.textContent = (`Round ${round}: You Win! ${playerSelection} beats ${computerSelection}.`);
-            score.textContent = (`Player to Computer Score: ${playerScore}-${computerScore}`);
             break;
 
         // Player Loses as default case
         default:
             ++computerScore;
-            round++;
             resultDiv.textContent = (`Round ${round}: You Lose! ${computerSelection} beats ${playerSelection}.`);
-            score.textContent = (`Player to Computer Score: ${playerScore}-${computerScore}`);
     }
+    score.textContent = (`Player to Computer Score: ${playerScore}-${computerScore}`);
     return;
 }
 
@@ -87,4 +82,3 @@ function endGame() {
 
     endGameDiv.textContent = (gameResult);
 }
-
