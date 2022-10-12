@@ -22,6 +22,7 @@ buttons.forEach(button => button.addEventListener('click', (e) => {
     playerSelection = e.target.innerText;
     computerSelection = getComputerChoice();
     playRound(playerSelection,computerSelection);
+    endGameDiv.textContent = ('');
     endGame();
     }
 ));
